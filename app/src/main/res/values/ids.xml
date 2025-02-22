@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="guidelineLeftTexture" type="id"/>
+    <item name="guidelineEllipseLeft" type="id"/>
+    <item name="guidelineEllipseRight" type="id"/>
+    <item name="guidelineEllipseTop" type="id"/>
+    <item name="guidelineEllipseBottom" type="id"/>
+    <item name="ellipse" type="id"/>
+    <item name="tvRightAddressForShopping" type="id"/>
+    <item name="tvQuality" type="id"/>
+    <item name="buttonStart" type="id"/>
+</resources>
