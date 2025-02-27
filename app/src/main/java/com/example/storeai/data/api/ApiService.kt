@@ -9,6 +9,12 @@ import retrofit2.Response
 import com.example.storeai.data.model.RegisterResponse
 import com.example.storeai.data.model.Product
 import com.example.storeai.data.model.RegisterRequest
+import com.example.storeai.data.model.User
+import com.example.storeai.data.model.LoginRequest
+import com.example.storeai.data.model.LoginResponse
+
+
+
 
 
 interface ApiService {
@@ -19,4 +25,10 @@ interface ApiService {
     suspend fun getProductById(@Path("id") id: String): Response<Product>
 
     @POST("users")
-    suspend fun registerUser(@Body request: RegisterRequest): Response<RegisterResponse>}
+    suspend fun registerUser(@Body request: RegisterRequest): Response<RegisterResponse>
+
+    @POST("users/login")
+    suspend fun loginUser(@Body request: LoginRequest): Response<LoginResponse>
+
+
+}

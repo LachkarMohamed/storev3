@@ -1,18 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/introductionFragment">
+
+    <!-- Introduction Flow -->
+    <fragment
+        android:id="@+id/introductionFragment"
+        android:name="com.example.storeai.login.IntroductionFragment"
+        android:label="Introduction">
+        <action
+            android:id="@+id/action_introduction_to_accountOptionsFragment"
+            app:destination="@id/accountOptionsFragment"
+            app:enterAnim="@anim/from_bottom" />
+    </fragment>
+
+    <!-- Account Options -->
+    <fragment
+        android:id="@+id/accountOptionsFragment"
+        android:name="com.example.storeai.login.AccountOptionsFragment"
+        android:label="Account Options">
+        <action
+            android:id="@+id/action_accountOptionsFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
+        <action
+            android:id="@+id/action_accountOptionsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+
+    <!-- Registration -->
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.storeai.login.RegisterFragment"
+        android:label="Register">
+        <action
+            android:id="@+id/action_registerFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+
+    <!-- Login Fragment -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.storeai.login.LoginFragment"
+        android:label="Login">
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
+    </fragment>
+
+    <!-- Add argument to ProductDetailFragment -->
+    <fragment android:id="@+id/productDetailFragment"
+        android:name="com.example.storeai.ui.product.ProductDetailFragment"
+        android:label="Product Detail">
+        <argument
+            android:name="productId"
+            app:argType="string" />
+    </fragment>
 
     <!-- Home Fragment -->
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.storeai.ui.home.HomeFragment"
         android:label="Home">
-
-        <action
-            android:id="@+id/action_registerFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-
         <action
             android:id="@+id/action_homeFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment">
@@ -22,9 +92,6 @@
         </action>
     </fragment>
 
-    <!-- Product Detail Fragment -->
-    <fragment
-        android:id="@+id/productDetailFragment"
-        android:name="com.example.storeai.ui.product.ProductDetailFragment"
-        android:label="Product Details" />
+
+
 </navigation>

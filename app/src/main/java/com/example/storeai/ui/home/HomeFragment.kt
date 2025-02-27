@@ -11,20 +11,29 @@ import com.example.storeai.databinding.FragmentHomeBinding
 import com.example.storeai.adapters.ProductAdapter
 import com.example.storeai.ui.home.HomeViewModel
 
+
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         viewModel.products.observe(viewLifecycleOwner) { products ->
             binding.recyclerView.adapter = ProductAdapter(products) { product ->
-                val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(product.id)
+                val action = HomeFragmentDirections
+                    .actionHomeFragmentToProductDetailFragment(product.id)
                 findNavController().navigate(action)
             }
         }
-
-        return binding.root
     }
 }

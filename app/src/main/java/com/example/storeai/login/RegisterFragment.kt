@@ -80,6 +80,10 @@ class RegisterFragment : Fragment() {
             if (validateInputs(firstName, lastName, email, password)) {
                 viewModel.registerUser(firstName, lastName, email, password)
             }
+
+        }
+        binding.tvDoYouHaveAccount.setOnClickListener {
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
     }
 

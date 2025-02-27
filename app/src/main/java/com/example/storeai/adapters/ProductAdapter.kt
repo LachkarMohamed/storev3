@@ -28,7 +28,7 @@ class ProductAdapter(
 
         // Load image with Coil
         holder.binding.productImage.load(
-            "https://ai-powered-website-backend.onrender.com/images/${product.image}"
+            product.image
         )
 
         holder.itemView.setOnClickListener { onClick(product) }

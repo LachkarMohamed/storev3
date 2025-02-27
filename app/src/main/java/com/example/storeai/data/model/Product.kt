@@ -7,5 +7,10 @@ data class Product(
     val description: String,
     val image: String,
     val category_title: String,
-    val similar_products_ids: List<String>? = null
+    val similar_products_ids: List<String>? = null,
+
+    val colors: List<Int>? = null,
+    val sizes: List<String>? = null,
+    val images: List<String> = emptyList()
+
 )
