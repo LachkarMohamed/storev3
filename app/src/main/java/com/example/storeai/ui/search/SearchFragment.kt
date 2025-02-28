@@ -1,20 +1,20 @@
-package com.example.storeai.ui.cart
+package com.example.storeai.ui.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.storeai.databinding.FragmentCartBinding
+import com.example.storeai.databinding.FragmentSearchBinding
 
-class CartFragment : Fragment() {
-    private lateinit var binding: FragmentCartBinding
+class SearchFragment : Fragment() {
+    private lateinit var binding: FragmentSearchBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCartBinding.inflate(inflater, container, false)
+        binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 }
