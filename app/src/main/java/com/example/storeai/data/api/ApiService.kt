@@ -12,8 +12,9 @@ import com.example.storeai.data.model.RegisterRequest
 import com.example.storeai.data.model.User
 import com.example.storeai.data.model.LoginRequest
 import com.example.storeai.data.model.LoginResponse
-
-
+import com.example.storeai.data.model.Category
+import retrofit2.http.Part
+import okhttp3.MultipartBody
 
 
 
@@ -29,6 +30,11 @@ interface ApiService {
 
     @POST("users/login")
     suspend fun loginUser(@Body request: LoginRequest): Response<LoginResponse>
+
+    @GET("categories")
+    suspend fun getAllCategories(): Response<List<Category>>
+
+    @POST("search/by-image") suspend fun searchByImage(@Part image: MultipartBody.Part): Response<List<Product>>
 
 
 }

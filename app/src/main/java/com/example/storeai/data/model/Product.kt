@@ -28,3 +28,15 @@ data class Product(
     val sizes: List<String>? = null,
     val images: List<String>? = null
 )*/
+/*
+[
+  {
+    "categorie_id": "21",
+    "category_title": "shoes"
+  },
+  {
+    "categorie_id": "23",
+    "category_title": "glasses"
+  }
+ ]
+* */
