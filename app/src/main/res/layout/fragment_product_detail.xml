@@ -79,7 +79,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSimilarProducts"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:padding="4dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
