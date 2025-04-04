@@ -76,6 +76,13 @@
         <argument
             android:name="productId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_productDetailSelf"
+            app:destination="@id/productDetailFragment">
+            <argument
+                android:name="productId"
+                app:argType="string" />
+        </action>
 
     </fragment>
 

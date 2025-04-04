@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.storeai.data.model.Product
 import com.example.storeai.databinding.ItemProductBinding
+import com.example.storeai.R
 
 
 class ProductAdapter(
@@ -31,12 +32,13 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = products[position]
         holder.binding.productTitle.text = product.title
-        holder.binding.productPrice.text = "$${product.price}"
+        holder.binding.productPrice.text = "$${"%.2f".format(product.price)}"
 
-        // Load image with Coil
-        holder.binding.productImage.load(
-            product.image
-        )
+        holder.binding.productImage.load(product.image) {
+            crossfade(true)
+            placeholder(R.drawable.placeholder_image)
+            error(R.drawable.error_image)
+        }
 
         holder.itemView.setOnClickListener { onClick(product) }
     }

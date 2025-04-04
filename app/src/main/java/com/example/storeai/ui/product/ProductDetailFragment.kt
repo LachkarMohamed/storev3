@@ -42,7 +42,12 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private fun observeData() {
         viewModel.product.observe(viewLifecycleOwner) { product ->
             product?.let {
-                // Add image loading
+                // Set text fields
+                binding.productTitle.text = it.title
+                binding.productPrice.text = "$${"%.2f".format(it.price)}"
+                binding.productDescription.text = it.description
+
+                // Image loading
                 binding.productImage.load(it.image) {
                     crossfade(true)
                     placeholder(R.drawable.placeholder_image)
@@ -67,7 +72,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     }
 
     private fun navigateToDetail(productId: String) {
-        val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(productId)
+        val action = ProductDetailFragmentDirections.actionProductDetailSelf(productId)
         findNavController().navigate(action)
     }
 }
