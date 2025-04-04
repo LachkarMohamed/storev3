@@ -11,12 +11,26 @@ import kotlinx.coroutines.launch
 class ProductViewModel : ViewModel() {
     private val repository = ProductRepository()
     private val _product = MutableLiveData<Product>()
+    private val _similarProducts = MutableLiveData<List<Product>>()
+
     val product: LiveData<Product> get() = _product
+    val similarProducts: LiveData<List<Product>> get() = _similarProducts
 
     fun loadProductDetails(productId: String) {
         viewModelScope.launch {
             try {
                 _product.value = repository.getProductById(productId)
+            } catch (e: Exception) {
+                // Handle error
+            }
+        }
+    }
+
+    fun loadSimilarProduct(productId: String) {
+        viewModelScope.launch {
+            try {
+                val product = repository.getProductById(productId)
+                _similarProducts.value = _similarProducts.value.orEmpty() + product
             } catch (e: Exception) {
                 // Handle error
             }

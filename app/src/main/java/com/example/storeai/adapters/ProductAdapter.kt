@@ -7,8 +7,9 @@ import coil.load
 import com.example.storeai.data.model.Product
 import com.example.storeai.databinding.ItemProductBinding
 
+
 class ProductAdapter(
-    private val products: List<Product>,
+    var products: List<Product>,
     private val onClick: (Product) -> Unit
 ) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
