@@ -9,6 +9,9 @@ import com.example.storeai.R
 import com.example.storeai.adapters.ProductAdapter
 import com.example.storeai.databinding.FragmentMainCategoryBinding
 import com.example.storeai.ui.home.HomeViewModel
+import com.example.storeai.ui.home.HomeFragmentDirections
+import androidx.navigation.fragment.findNavController
+
 
 class MainCategoryFragment : Fragment(R.layout.fragment_main_category) {
     private lateinit var binding: FragmentMainCategoryBinding
@@ -38,6 +41,7 @@ class MainCategoryFragment : Fragment(R.layout.fragment_main_category) {
     }
 
     private fun navigateToDetail(productId: String) {
-        // Implement navigation to product detail
+        val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(productId)
+        findNavController().navigate(action)
     }
 }

@@ -76,6 +76,7 @@
         <argument
             android:name="productId"
             app:argType="string" />
+
     </fragment>
 
     <!-- Home Fragment -->
@@ -90,6 +91,7 @@
                 android:name="productId"
                 app:argType="string" />
         </action>
+
     </fragment>
 
 

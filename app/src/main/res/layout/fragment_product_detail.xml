@@ -14,7 +14,10 @@
             android:id="@+id/productImage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/productTitle"
@@ -37,15 +40,21 @@
         <!-- Similar Products Section -->
         <TextView
             android:id="@+id/tvSimilarProducts"
-            android:text="Similar Products"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="Similar Products"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/productDescription"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSimilarProducts"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
+            android:padding="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/tvSimilarProducts"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

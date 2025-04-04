@@ -9,6 +9,12 @@ import com.example.storeai.R
 import com.example.storeai.adapters.ProductAdapter
 import com.example.storeai.databinding.FragmentProductDetailBinding
 import com.example.storeai.viewmodels.ProductViewModel
+import com.example.storeai.ui.home.HomeFragmentDirections
+import androidx.navigation.fragment.findNavController
+import coil.load
+import com.example.storeai.R.drawable
+import com.example.storeai.R.string
+
 
 class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private lateinit var binding: FragmentProductDetailBinding
@@ -36,19 +42,22 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private fun observeData() {
         viewModel.product.observe(viewLifecycleOwner) { product ->
             product?.let {
-                binding.productTitle.text = it.title
-                binding.productPrice.text = "$${it.price}"
-                binding.productDescription.text = it.description
-                // Load image using Coil/Glide
+                // Add image loading
+                binding.productImage.load(it.image) {
+                    crossfade(true)
+                    placeholder(R.drawable.placeholder_image)
+                    error(R.drawable.error_image)
+                }
 
-                it.similar_products_ids?.forEach { id ->
-                    viewModel.loadSimilarProduct(id)
+                // Load all similar products at once
+                it.similar_products_ids?.let { ids ->
+                    viewModel.loadSimilarProducts(ids)
                 }
             }
         }
 
         viewModel.similarProducts.observe(viewLifecycleOwner) { products ->
-            similarAdapter.products = products
+            similarAdapter.updateProducts(products) // Use update method
         }
     }
 
@@ -58,6 +67,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     }
 
     private fun navigateToDetail(productId: String) {
-        // Implement navigation to product detail
+        val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(productId)
+        findNavController().navigate(action)
     }
 }

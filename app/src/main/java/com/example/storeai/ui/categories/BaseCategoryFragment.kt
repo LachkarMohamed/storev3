@@ -9,10 +9,12 @@ import com.example.storeai.R
 import com.example.storeai.adapters.ProductAdapter
 import com.example.storeai.databinding.FragmentBaseCategoryBinding
 import com.example.storeai.ui.home.HomeViewModel
+import com.example.storeai.ui.home.HomeFragmentDirections
+import androidx.navigation.fragment.findNavController
 
 class BaseCategoryFragment : Fragment(R.layout.fragment_base_category) {
     companion object {
-        private const val ARG_CATEGORY_ID = "category_id"
+        private const val ARG_CATEGORY_ID = "categoryId" // Changed from "category_id"
 
         fun newInstance(categoryId: String): BaseCategoryFragment {
             val fragment = BaseCategoryFragment()
@@ -28,7 +30,7 @@ class BaseCategoryFragment : Fragment(R.layout.fragment_base_category) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        categoryId = arguments?.getString("categoryId")
+        categoryId = arguments?.getString(ARG_CATEGORY_ID) // Use constant
         viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     }
 
@@ -54,6 +56,7 @@ class BaseCategoryFragment : Fragment(R.layout.fragment_base_category) {
     }
 
     private fun navigateToDetail(productId: String) {
-        // Implement navigation to product detail
+        val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(productId)
+        findNavController().navigate(action)
     }
 }

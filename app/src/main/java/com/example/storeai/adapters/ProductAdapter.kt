@@ -15,6 +15,12 @@ class ProductAdapter(
 
     inner class ViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
 
+
+    fun updateProducts(newProducts: List<Product>) {
+        products = newProducts
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemProductBinding.inflate(
             LayoutInflater.from(parent.context), parent, false

@@ -26,11 +26,13 @@ class ProductViewModel : ViewModel() {
         }
     }
 
-    fun loadSimilarProduct(productId: String) {
+    fun loadSimilarProducts(ids: List<String>) {
         viewModelScope.launch {
             try {
-                val product = repository.getProductById(productId)
-                _similarProducts.value = _similarProducts.value.orEmpty() + product
+                val products = ids.map { id ->
+                    repository.getProductById(id)
+                }
+                _similarProducts.value = products
             } catch (e: Exception) {
                 // Handle error
             }
