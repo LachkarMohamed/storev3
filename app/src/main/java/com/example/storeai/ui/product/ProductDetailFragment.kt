@@ -4,17 +4,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.example.storeai.R
 import com.example.storeai.adapters.ProductAdapter
 import com.example.storeai.databinding.FragmentProductDetailBinding
 import com.example.storeai.viewmodels.ProductViewModel
-import com.example.storeai.ui.home.HomeFragmentDirections
-import androidx.navigation.fragment.findNavController
-import coil.load
-import com.example.storeai.R.drawable
-import com.example.storeai.R.string
-
+import com.example.storeai.ui.product.ProductDetailFragmentArgs // Safe Args import
+import com.example.storeai.ui.product.ProductDetailFragmentDirections // Safe Args import
+import androidx.recyclerview.widget.GridLayoutManager
 
 class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private lateinit var binding: FragmentProductDetailBinding
@@ -27,34 +26,42 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         viewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
 
         setupUI()
+        setupCloseButton()
         observeData()
         loadProduct()
     }
 
+    // ProductDetailFragment.kt
     private fun setupUI() {
-        similarAdapter = ProductAdapter(emptyList()) { navigateToDetail(it.id) }
-        binding.rvSimilarProducts.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = similarAdapter
+        // Update layout manager for grid
+        binding.rvSimilarProducts.layoutManager = GridLayoutManager(context, 2)
+        similarAdapter = ProductAdapter(emptyList()) { productId ->
+            val action = ProductDetailFragmentDirections.actionProductDetailFragmentSelf(productId)
+            findNavController().navigate(action)
+        }
+        binding.rvSimilarProducts.adapter = similarAdapter
+    }
+
+    private fun setupCloseButton() {
+        binding.ivClose.setOnClickListener {
+            // Navigate back to home
+            findNavController().navigate(R.id.homeFragment)
         }
     }
 
     private fun observeData() {
         viewModel.product.observe(viewLifecycleOwner) { product ->
             product?.let {
-                // Set text fields
                 binding.productTitle.text = it.title
                 binding.productPrice.text = "$${"%.2f".format(it.price)}"
                 binding.productDescription.text = it.description
 
-                // Image loading
                 binding.productImage.load(it.image) {
                     crossfade(true)
                     placeholder(R.drawable.placeholder_image)
                     error(R.drawable.error_image)
                 }
 
-                // Load all similar products at once
                 it.similar_products_ids?.let { ids ->
                     viewModel.loadSimilarProducts(ids)
                 }
@@ -62,17 +69,14 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         }
 
         viewModel.similarProducts.observe(viewLifecycleOwner) { products ->
-            similarAdapter.updateProducts(products) // Use update method
+            similarAdapter.updateProducts(products)
         }
     }
 
     private fun loadProduct() {
-        val productId = arguments?.getString("productId") ?: return
+        // Use Safe Args to get productId
+        val args = ProductDetailFragmentArgs.fromBundle(requireArguments())
+        val productId = args.productId
         viewModel.loadProductDetails(productId)
-    }
-
-    private fun navigateToDetail(productId: String) {
-        val action = ProductDetailFragmentDirections.actionProductDetailSelf(productId)
-        findNavController().navigate(action)
     }
 }

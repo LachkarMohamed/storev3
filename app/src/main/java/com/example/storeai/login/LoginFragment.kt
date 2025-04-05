@@ -1,6 +1,7 @@
 package com.example.storeai.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -17,6 +18,8 @@ import com.example.storeai.data.repository.UserRepository
 import com.example.storeai.databinding.FragmentLoginBinding
 import kotlinx.coroutines.launch
 import com.example.storeai.data.model.LoginResponse
+import com.example.storeai.activities.ShoppingActivity
+
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding
@@ -99,7 +102,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun navigateToHome() {
-        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        startActivity(Intent(requireContext(), ShoppingActivity::class.java))
+        requireActivity().finish() // Close login flow
     }
 
     private fun showLoading() {

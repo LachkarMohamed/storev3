@@ -4,15 +4,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.storeai.R
-import com.example.storeai.databinding.FragmentHomeBinding
-import com.example.storeai.ui.home.HomeViewModel
-import com.example.storeai.data.model.Category
-import com.example.storeai.ui.categories.MainCategoryFragment
-import com.example.storeai.ui.categories.BaseCategoryFragment
 import com.example.storeai.adapters.HomeViewpagerAdapter
+import com.example.storeai.data.model.Category
+import com.example.storeai.databinding.FragmentHomeBinding
+import com.example.storeai.ui.categories.BaseCategoryFragment
+import com.example.storeai.ui.categories.MainCategoryFragment
+import com.example.storeai.ui.home.HomeFragmentDirections // Add Safe Args import
 import com.google.android.material.tabs.TabLayoutMediator
 import androidx.appcompat.app.AlertDialog
+import dagger.hilt.android.AndroidEntryPoint
+import com.example.storeai.adapters.ProductAdapter
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var binding: FragmentHomeBinding
@@ -58,6 +61,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }.attach()
     }
+
+    private fun setupProductAdapter() {
+        // Example for MainCategoryFragment's adapter setup
+        val adapter = ProductAdapter(emptyList()) { productId ->
+            val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(productId)
+            findNavController().navigate(action)
+        }
+        // Assign to RecyclerView
+    }
+
 
     private fun showImageSourceDialog() {
         val options = arrayOf("Take Photo", "Choose from Gallery", "Cancel")

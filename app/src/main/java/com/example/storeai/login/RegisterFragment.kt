@@ -1,6 +1,7 @@
 package com.example.storeai.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 import androidx.lifecycle.Lifecycle
 import com.example.storeai.data.model.RegisterResponse
 import com.example.storeai.R // For navigation IDs
+import com.example.storeai.activities.ShoppingActivity
 
 
 class RegisterFragment : Fragment() {
@@ -104,8 +106,10 @@ class RegisterFragment : Fragment() {
         }
     }
 
+    // Inside handleSuccess()
     private fun navigateToHome() {
-        findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+        startActivity(Intent(requireContext(), ShoppingActivity::class.java))
+        requireActivity().finish() // Close registration flow
     }
 
     private fun handleError(message: String) {

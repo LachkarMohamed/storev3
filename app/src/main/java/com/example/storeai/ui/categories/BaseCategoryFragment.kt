@@ -49,9 +49,13 @@ class BaseCategoryFragment : Fragment(R.layout.fragment_base_category) {
 
     private fun observeProducts() {
         viewModel.products.observe(viewLifecycleOwner) { products ->
-            val filteredProducts = products.filter { it.categorie_id == categoryId }
-            binding.rvOfferProducts.adapter = ProductAdapter(filteredProducts) { navigateToDetail(it.id) }
-            binding.rvBestProducts.adapter = ProductAdapter(filteredProducts.shuffled().take(4)) { navigateToDetail(it.id) }
+            val filteredProducts = products.filter { it.categorie_id == categoryId } // Correct field name
+            binding.rvOfferProducts.adapter = ProductAdapter(filteredProducts) { productId ->
+                navigateToDetail(productId)
+            }
+            binding.rvBestProducts.adapter = ProductAdapter(filteredProducts.shuffled().take(4)) { productId ->
+                navigateToDetail(productId)
+            }
         }
     }
 

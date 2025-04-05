@@ -32,11 +32,18 @@ class MainCategoryFragment : Fragment(R.layout.fragment_main_category) {
         binding.rvBestProducts.layoutManager = GridLayoutManager(context, 2)
     }
 
+    // MainCategoryFragment.kt
     private fun observeProducts() {
         viewModel.products.observe(viewLifecycleOwner) { products ->
-            binding.rvSpecialProducts.adapter = ProductAdapter(products.shuffled().take(4)) { navigateToDetail(it.id) }
-            binding.rvBestDealsProducts.adapter = ProductAdapter(products.shuffled().take(4)) { navigateToDetail(it.id) }
-            binding.rvBestProducts.adapter = ProductAdapter(products) { navigateToDetail(it.id) }
+            binding.rvSpecialProducts.adapter = ProductAdapter(products.shuffled().take(4)) { productId ->
+                navigateToDetail(productId)
+            }
+            binding.rvBestDealsProducts.adapter = ProductAdapter(products.shuffled().take(4)) { productId ->
+                navigateToDetail(productId)
+            }
+            binding.rvBestProducts.adapter = ProductAdapter(products) { productId ->
+                navigateToDetail(productId)
+            }
         }
     }
 
