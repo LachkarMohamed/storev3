@@ -2,6 +2,7 @@ package com.example.storeai.ui.product
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import com.example.storeai.viewmodels.ProductViewModel
 import com.example.storeai.ui.product.ProductDetailFragmentArgs // Safe Args import
 import com.example.storeai.ui.product.ProductDetailFragmentDirections // Safe Args import
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.storeai.utils.CartManager
 
 class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private lateinit var binding: FragmentProductDetailBinding
@@ -29,6 +31,13 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         setupCloseButton()
         observeData()
         loadProduct()
+        binding.btnAddToCart.setOnClickListener {
+            viewModel.product.value?.let { product ->
+                CartManager.addToCart(requireContext(), product)
+                // Show confirmation (optional)
+                Toast.makeText(context, "${product.title} added to cart", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     // ProductDetailFragment.kt
