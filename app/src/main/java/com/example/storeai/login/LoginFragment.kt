@@ -97,6 +97,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         with(sharedPref.edit()) {
             putString("auth_token", response.token)
             putString("user_id", response.user.id)
+            putString("username", response.user.username)
+            putString("email", response.user.email)
             apply()
         }
     }
