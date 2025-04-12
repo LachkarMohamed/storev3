@@ -31,7 +31,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         binding.searchBar.setOnClickListener {
-            // Handle search
+            val navController = findNavController()
+            navController.navigate(R.id.action_homeFragment_to_searchFragment)
         }
 
         binding.ivScan.setOnClickListener {
